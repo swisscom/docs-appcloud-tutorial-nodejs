@@ -1,0 +1,43 @@
+---
+title: Push Local Changes
+owner: @mastertinner
+---
+
+<strong><%= modified_date %></strong>
+
+In this step you’ll learn how to propagate a local change to the application through to <%= vars.product_short %>. As a simple change, we'll modify the title which the app shows.
+
+Change the `title` property in the `routes/index.js` file to 'I am awesome!'. Your final result should look something like this:
+
+```javascript
+var express = require('express');
+var router = express.Router();
+
+/* GET home page. */
+router.get('/', function(req, res, next) {
+  res.render('index', { title: 'Congratulations!' });
+});
+
+module.exports = router;
+
+```
+
+Now test locally:
+
+<pre class="terminal">
+$ npm start
+</pre>
+
+Visiting your application at [http://localhost:3000](http://localhost:3000), you should see the changed title. *You are awesome!*
+
+Now deploy. All you need to do is `cf push` again:
+
+<pre class="terminal">
+$ cf push
+</pre>
+
+Finally, check that everything is working by visiting your app's URL from your web browser.
+
+<div style="text-align:center">
+  <a href="./bind-services.html" class="btn-primary">I can push local changes</a>
+</div>

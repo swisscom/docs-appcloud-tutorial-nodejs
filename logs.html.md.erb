@@ -1,0 +1,34 @@
+---
+title: View Logs
+owner: @mastertinner
+---
+
+<strong><%= modified_date %></strong>
+
+<%= vars.product_full %> treats logs as streams of time-ordered events aggregated from the output streams of all your app and <%= vars.product_short %> components, providing a single channel for all of the events.
+
+View information about your running app using one of the logging commands, `cf logs`:
+
+<pre class="terminal">
+$ cf logs
+Connected, tailing logs for app cf-sample-app-node in org MyOrg / space MySpace as user@mydomain.com...
+
+2016-03-30T16:37:06.39+0200 [App/0]      OUT GET / 200 1.756 ms - 212
+2016-03-30T16:37:06.39+0200 [RTR/1]      OUT my-random-hostname.scapp.io - [30/03/2016:14:37:06 +0000] "GET / HTTP/1.1" 200 0 212 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.110 Safari/537.36" 195.65.130.2:61671 x_forwarded_for:"-" x_forwarded_proto:"http" vcap_request_id:f1ac25ce-2ca5-4538-59c5-83d58de55766 response_time:0.005294073 app_id:c98d5025-1bc9-46aa-8bba-51f55f7f2599
+</pre>
+
+Visit your application in the browser, to see log messages being generated.
+
+Press `Ctrl+C` to stop streaming the logs.
+
+You can use
+
+<pre class="terminal">
+$ cf logs --recent
+</pre>
+
+to get the most recent logs.
+
+<div style="text-align:center">
+  <a href="./scale.html" class="btn-primary">I've learned how to see my logs</a>
+</div>

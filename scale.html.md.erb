@@ -1,0 +1,58 @@
+---
+title: Scale the App
+owner: @mastertinner
+---
+
+<strong><%= modified_date %></strong>
+
+Right now, your app is running as a single instance with 128MB of memory.
+
+You can check how many instances are running and how much memory they have using the `cf scale` command:
+
+<pre class="terminal">
+$ cf scale cf-sample-app-node
+Showing current scale of app cf-sample-app-node in org MyOrg / space MySpace as user@mydomain.com...
+OK
+
+memory: 128M
+disk: 1G
+instances: 1
+</pre>
+
+By default, your app is deployed as one instance.
+
+## Scaling Horizontally
+
+Scaling an application horizontally on <%= vars.product_full %> is equivalent to changing the number of instances that are running. Scale the number of instances to 3:
+
+<pre class="terminal">
+$ cf scale cf-sample-app-node -i 3
+Scaling app cf-sample-app-node in org MyOrg / space MySpace as user@mydomain.com...
+OK
+</pre>
+
+## Scaling Vertically
+
+Scaling an application vertically on <%= vars.product_full %> is equivalent to changing amount of memory each instance has. Scale the amount of memory to 256MB:
+
+<pre class="terminal">
+$ cf scale cf-sample-app-node -m 256M
+
+This will cause the app to restart. Are you sure you want to scale cf-sample-app-node?&gt; yes
+
+Scaling app cf-sample-app-node in org MyOrg / space MySpace as user@mydomain.com...
+OK
+
+...
+
+     state     since                    cpu     memory          disk        details
+#0   running   2016-03-30 04:54:46 PM   64.6%   72.6M of 256M   42M of 1G
+#1   running   2016-03-30 04:54:47 PM   0.1%    69.9M of 256M   42M of 1G
+#2   running   2016-03-30 04:54:47 PM   0.2%    69.7M of 256M   42M of 1G
+</pre>
+
+The last statement shows a summary of the three instances with a memory cap of 256MB each that we now have.
+
+<div style="text-align:center">
+  <a href="./dependencies.html" class="btn-primary">I know how to scale my App</a>
+</div>

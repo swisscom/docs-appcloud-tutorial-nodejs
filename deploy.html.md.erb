@@ -1,0 +1,63 @@
+---
+title: Deploy the App
+owner: @mastertinner
+---
+
+<strong><%= modified_date %></strong>
+
+In this step you will deploy the app to <%= vars.product_full %>.
+
+Push your app to the cloud by executing the following command and replacing the "my-random-hostname" with your own hostname. This will be part of the URL your app will be reached from and it has to be globally unique so be creative. The `-m 128M` tells Cloud Foundry to use 128MB of memory for our app which should be plenty.
+
+<pre class="terminal">
+$ cf push cf-sample-app-node -m 128M -n my-random-hostname
+Creating app cf-sample-app-node in org MyOrg / space MySpace as user@mydomain.com...
+OK
+
+Creating route my-random-hostname.scapp.io...
+OK
+
+Binding my-random-hostname.scapp.io to cf-sample-app-node...
+OK
+
+Uploading cf-sample-app-node...
+Uploading app files from: /.../cf-sample-app-node
+Uploading 6.1K, 17 files
+Done uploading
+OK
+
+...
+
+requested state: started
+instances: 1/1
+usage: 128M x 1 instances
+urls: my-random-hostname.scapp.io
+last uploaded: Wed Mar 30 14:10:57 UTC 2016
+stack: unknown
+buildpack: node.js 1.5.8
+</pre>
+
+The application is now deployed. Ensure that the app is running:
+
+<pre class="terminal">
+$ cf app cf-sample-app-node
+Showing health and status for app cf-sample-app-node in org MyOrg / space MySpace as user@mydomain.com...
+OK
+
+requested state: started
+instances: 1/1
+usage: 256M x 1 instances
+urls: my-random-hostname.scapp.io
+last uploaded: Wed Mar 30 14:10:57 UTC 2016
+stack: cflinuxfs2
+buildpack: node.js 1.5.8
+
+     state     since                    cpu    memory          disk        details
+#0   running   2016-03-30 04:11:27 PM   0.0%   70.1M of 256M   42M of 1G
+</pre>
+
+Now visit the app at the URL. You can find the URL in the `urls` property of the statement above.
+
+<div style="text-align:center">
+  <a href="./logs.html" class="btn-primary">I have deployed my App</a>
+</div>
