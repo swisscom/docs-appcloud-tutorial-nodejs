@@ -5,12 +5,32 @@ owner: @mastertinner
 
 <strong><%= modified_date %></strong>
 
-It's tedious to keep having to specify the app name and other variables each time we push our app. That's where a `manifest.yml` file comes in handy. It holds all the configuration for our app so that Cloud Foundry will know what to do with it.
+It's tedious to keep having to specify the app name and other variables each time we push our app. That's where a `manifest.yml` file comes in handy. It holds all the configuration for our app so that Cloud Foundry will know what to do with it. Create a `manifest.yml` file in the root folder of your app and add the following content (don't forget to replace the "my-random-hostname" with your creative hostname again):
 
-...
+```YAML
+---
+applications:
+  name: cf-sample-app-node
+  memory: 128MB
+  instances: 1
 
-You can find more information about application manifests in the [documentation](../devguide/deploy-apps/manifest.html).
+  host: my-random-hostname
+
+  services:
+  - my-mongodb
+
+  env:
+    NODE_ENV: production
+```
+
+The file tells Cloud Foundry that this is an application with the name `cf-sample-app-node` and the specifications made above. This means that from now on, you'll be able to push your App with the simple command:
+
+<pre class="terminal">
+$ cf push
+</pre>
+
+You can define many more variables in a manifest file. To find more information about application manifests, go to the [About Apps](../devguide/deploy-apps/manifest.html) part of this documentation.
 
 <div style="text-align:center">
-  <a href="./scale.html" class="btn-primary">I've added a manifest</a>
+  <a href="./next-steps.html" class="btn btn-primary">I've added a manifest</a>
 </div>

@@ -1,0 +1,166 @@
+---
+title: Bind Services to Your App
+owner: @mastertinner
+---
+
+<strong><%= modified_date %></strong>
+
+The [service marketplace](./service-offerings/index.html) has a large number of data stores, from Redis and MongoDB, to MariaDB and RabbitMQ. In this step you will add a small MongoDB database to your app.
+
+Create the database:
+
+<pre class="terminal">
+$ cf create-service mongodb small my-mongodb
+Creating service instance my-mongodb in org MyOrg / space MySpace as user@mydomain.com...
+OK
+
+Create in progress. Use 'cf services' or 'cf service my-mongodb' to check operation status.
+
+Attention: The plan `small` of service `mongodb` is not free.  The instance `my-mongodb` will incur a cost.  Contact your administrator if you think this is in error.
+</pre>
+
+This creates a small MongoDB database for you which we now have to bind to our application. Binding means that the credentials and URL of the service will be written dynamically into the environment variables of the app as `VCAP_SERVICES` and can hence be used directly from there. Let's bind the new service to our existing application:
+
+<pre class="terminal">
+$ cf bind-service my-app my-mongodb
+Binding service my-mongodb to app cf-sample-app-node in org MyOrg / space MySpace as user@mydomain.com...
+OK
+TIP: Use 'cf restage cf-sample-app-node' to ensure your env variable changes take effect
+</pre>
+
+After that we restage the application as suggested so that includes gets the new credentials in its environment variables:
+
+<pre class="terminal">
+$ cf restage cf-sample-app-node
+Restaging app my-app in org MyOrg / space MySpace as user@mydomain.com...
+-----> Downloaded app package (8.0K)
+-------> Buildpack version 1.5.8
+-----> Creating runtime environment
+
+...
+</pre>
+
+Now we want to consume our new MongoDB from within our application. Use npm to add the `mongoose` npm module to your dependencies:
+
+<pre class="terminal">
+$ npm install --save mongoose cfenv
+cf-sample-app-node@0.0.0 /.../cf-sample-app-node
+└─┬ mongoose@4.4.10
+  ├── async@1.5.2
+  ├── bson@0.4.21
+  ├── hooks-fixed@1.1.0
+
+  ...
+</pre>
+
+Now edit your `app.js` file to use these modules to connect to the database specified in your `VCAP_SERVICES` environment variable:
+
+```javascript
+var express = require('express');
+var path = require('path');
+var favicon = require('serve-favicon');
+var logger = require('morgan');
+var cookieParser = require('cookie-parser');
+var bodyParser = require('body-parser');
+var mongoose = require('mongoose');
+
+var routes = require('./routes/index');
+var users = require('./routes/users');
+
+var app = express();
+
+var mongoUrl = '';
+
+if (process.env.VCAP_SERVICES) {
+  var vcapServices = JSON.parse(process.env.VCAP_SERVICES);
+  mongoUrl = vcapServices.mongodb[0].credentials.uri;
+} else {
+  mongoUrl = 'mongodb://localhost/db';
+}
+
+mongoose.connect(mongoUrl);
+
+var kittySchema = mongoose.Schema({
+  name: 'string'
+});
+
+var Kitten = mongoose.model('Kitten', kittySchema);
+
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'jade');
+
+// uncomment after placing your favicon in /public
+//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(logger('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.use('/', routes);
+app.use('/users', users);
+
+app.get('/db', function (req, res, next) {
+  Kitten.find(function (err, kittens) {
+    if (err) return next(err);
+
+    res.json(kittens);
+  })
+})
+
+// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+  var err = new Error('Not Found');
+  err.status = 404;
+  next(err);
+});
+
+// error handlers
+
+// development error handler
+// will print stacktrace
+if (app.get('env') === 'development') {
+  app.use(function(err, req, res, next) {
+    res.status(err.status || 500);
+    res.render('error', {
+      message: err.message,
+      error: err
+    });
+  });
+}
+
+// production error handler
+// no stacktraces leaked to user
+app.use(function(err, req, res, next) {
+  res.status(err.status || 500);
+  res.render('error', {
+    message: err.message,
+    error: {}
+  });
+});
+
+
+module.exports = app;
+
+```
+
+This ensures that when you access your app using the `/db` route, it will return all the kittens stored in your database. Currently there are no kittens so it will return an empty array. Sad...
+
+The line
+
+```javascript
+if (process.env.VCAP_SERVICES) {
+```
+
+checks if the app is running in the cloud. If not, it falls back to the default local MongoDB url. This allows you to run your app locally as well as in the cloud without having to configure anything differently. So let's push it to the cloud using
+
+<pre class="terminal">
+$ cf push cf-sample-app-node
+</pre>
+
+You can access other services like Redis or MariaDB in a similar matter, simply by binding them to your app and accessing them through the environment variables.
+
+<div style="text-align:center">
+  <a href="./manifest.html" class="btn btn-primary">I've bound a service to my App</a>
+</div>

@@ -5,7 +5,7 @@ owner: @mastertinner
 
 <strong><%= modified_date %></strong>
 
-The Swisscom Application Cloud recognizes an app as Node.js by the existence of a `package.json` file in the root directory. For your own apps, you can create one by running `npm init --yes`.
+<%= vars.product_short %> recognizes an app as Node.js by the existence of a `package.json` file in the root directory. For your own apps, you can create one by running `npm init --yes`.
 The demo app you deployed already has a `package.json`, and it looks something like this:
 
 ```JSON
@@ -42,6 +42,17 @@ cf-sample-app-node@0.0.0 /.../cf-sample-app-node
 
 Once dependencies are installed, you will be ready to run your app locally.
 
+Upon running `cf push`, we will also push our whole dependencies folder `node_modules`. Since Cloud Foundry runs `npm install` anyways, this is redunant and should be omitted to save bandwidth and even more importantly: time. You can create a `.cfignore` file which works just like a `.gitignore` file and which tells Cloud Foundry what files should be excluded when pushing. Let's create a `.cfignore` file and exclude the `node_modules`:
+
+```
+# .cfignore
+node_modules
+```
+
+<p class="note">
+  <strong>Pro Tip</strong>: To lock down your dependencies' versions before pushing, you can run <code>npm shrinkwrap</code>. This will create a <code>npm-shrinkwrap.json</code> file which holds the exact versions of all your dependencies. Any <code>npm install</code> will then install exactly these versions so you can be sure that your app is using versions which work.
+</p>
+
 <div style="text-align:center">
-  <a href="./run-locally.html" class="btn-primary">I've installed the App dependencies locally</a>
+  <a href="./run-locally.html" class="btn btn-primary">I've installed the App dependencies locally</a>
 </div>
