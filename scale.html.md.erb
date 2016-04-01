@@ -19,7 +19,7 @@ disk: 1G
 instances: 1
 </pre>
 
-By default, your app is deployed as one instance.
+By default, your app is deployed as one instance. Each instance runs in a separate container and gets the set amount of memory.
 
 ## Scaling Horizontally
 
@@ -33,7 +33,7 @@ OK
 
 ## Scaling Vertically
 
-Scaling an application vertically on <%= vars.product_full %> is equivalent to changing amount of memory each instance has. Scale the amount of memory to 256MB:
+Scaling an application vertically on <%= vars.product_full %> is equivalent to changing the amount of memory each instance has. Scale the amount of memory to 256MB:
 
 <pre class="terminal">
 $ cf scale cf-sample-app-node -m 256M

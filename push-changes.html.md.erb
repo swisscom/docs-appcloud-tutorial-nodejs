@@ -15,7 +15,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Congratulations!' });
+  res.render('index', { title: 'I am awesome!' });
 });
 
 module.exports = router;
@@ -28,12 +28,12 @@ Now test locally:
 $ npm start
 </pre>
 
-Visiting your application at [http://localhost:3000](http://localhost:3000), you should see the changed title. *You are awesome!*
+Visiting your application at [http://localhost:3000](http://localhost:3000), you should see the changed title. **You are awesome!**
 
 Now deploy. All you need to do is `cf push` again:
 
 <pre class="terminal">
-$ cf push
+$ cf push cf-sample-app-node
 </pre>
 
 Finally, check that everything is working by visiting your app's URL from your web browser.

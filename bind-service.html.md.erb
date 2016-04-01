@@ -5,7 +5,7 @@ owner: Tobias Fuhrimann
 
 <strong><%= modified_date %></strong>
 
-The [service marketplace](../service-offerings/index.html) has a large number of data stores, from Redis and MongoDB, to MariaDB and RabbitMQ. In this step you will add a small MongoDB database to your app.
+The <a href="../service-offerings/index.html" target="_blank">service marketplace</a> has a large number of data stores, from Redis and MongoDB, to MariaDB and RabbitMQ. In this step you will add a small MongoDB database to your app.
 
 Create the database:
 
@@ -19,7 +19,9 @@ Create in progress. Use 'cf services' or 'cf service my-mongodb' to check operat
 Attention: The plan `small` of service `mongodb` is not free.  The instance `my-mongodb` will incur a cost.  Contact your administrator if you think this is in error.
 </pre>
 
-This creates a small MongoDB database for you which we now have to bind to our application. Binding means that the credentials and URL of the service will be written dynamically into the environment variables of the app as `VCAP_SERVICES` and can hence be used directly from there. Let's bind the new service to our existing application:
+This creates a small MongoDB database for you which we now have to bind to our application. Binding means that the credentials and URL of the service will be written dynamically into the environment variables of the app as `VCAP_SERVICES` and can hence be used directly from there.
+
+Let's bind the new service to our existing application:
 
 <pre class="terminal">
 $ cf bind-service my-app my-mongodb
@@ -28,7 +30,7 @@ OK
 TIP: Use 'cf restage cf-sample-app-node' to ensure your env variable changes take effect
 </pre>
 
-After that we restage the application as suggested so that includes gets the new credentials in its environment variables:
+After that we restage the application as suggested so that it includes the new credentials in its environment variables:
 
 <pre class="terminal">
 $ cf restage cf-sample-app-node
@@ -53,7 +55,7 @@ cf-sample-app-node@0.0.0 /.../cf-sample-app-node
   ...
 </pre>
 
-Now edit your `app.js` file to use these modules to connect to the database specified in your `VCAP_SERVICES` environment variable:
+Now edit your `app.js` file to use these modules to connect to the database specified in your `VCAP_SERVICES` environment variable. We do this by requiring the `mongoose` module and adding a route for the `/db` endpoint which returns the `kittens` collection of our MongoDB:
 
 ```javascript
 var express = require('express');
