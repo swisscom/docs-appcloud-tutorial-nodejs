@@ -10,8 +10,8 @@ Right now, your app is running as a single instance with 128MB of memory.
 You can check how many instances are running and how much memory they have using the `cf scale` command:
 
 <pre class="terminal">
-$ cf scale cf-sample-app-node
-Showing current scale of app cf-sample-app-node in org MyOrg / space MySpace as user@mydomain.com...
+$ cf scale my-node-app
+Showing current scale of app my-node-app in org MyOrg / space MySpace as user@mydomain.com...
 OK
 
 memory: 128M
@@ -26,8 +26,8 @@ By default, your app is deployed as one instance. Each instance runs in a separa
 Scaling an application horizontally on <%= vars.product_full %> is equivalent to changing the number of instances that are running. Scale the number of instances to 3:
 
 <pre class="terminal">
-$ cf scale cf-sample-app-node -i 3
-Scaling app cf-sample-app-node in org MyOrg / space MySpace as user@mydomain.com...
+$ cf scale my-node-app -i 3
+Scaling app my-node-app in org MyOrg / space MySpace as user@mydomain.com...
 OK
 </pre>
 
@@ -36,11 +36,11 @@ OK
 Scaling an application vertically on <%= vars.product_full %> is equivalent to changing the amount of memory each instance has. Scale the amount of memory to 256MB:
 
 <pre class="terminal">
-$ cf scale cf-sample-app-node -m 256M
+$ cf scale my-node-app -m 256M
 
-This will cause the app to restart. Are you sure you want to scale cf-sample-app-node?&gt; yes
+This will cause the app to restart. Are you sure you want to scale my-node-app?&gt; yes
 
-Scaling app cf-sample-app-node in org MyOrg / space MySpace as user@mydomain.com...
+Scaling app my-node-app in org MyOrg / space MySpace as user@mydomain.com...
 OK
 
 ...

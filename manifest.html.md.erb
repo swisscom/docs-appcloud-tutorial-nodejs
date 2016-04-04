@@ -10,7 +10,7 @@ It's tedious to keep having to specify the app name and other variables each tim
 ```YAML
 ---
 applications:
-  name: cf-sample-app-node
+  name: my-node-app
   memory: 128MB
   instances: 1
 
@@ -23,7 +23,7 @@ applications:
     NODE_ENV: production
 ```
 
-The file tells Cloud Foundry that this is an application with the name `cf-sample-app-node` and the specifications made above. This means that from now on, you'll be able to push your App with the simple command:
+The file tells Cloud Foundry that this is an application with the name `my-node-app` and the specifications made above. This means that from now on, you'll be able to push your App with the simple command:
 
 <pre class="terminal">
 $ cf push

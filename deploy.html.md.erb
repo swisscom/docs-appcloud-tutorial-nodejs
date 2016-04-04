@@ -10,17 +10,17 @@ In this step you will deploy the app to <%= vars.product_full %>.
 Push your app to the cloud by executing the following command and replacing the "my-random-hostname" with your own hostname. This will be part of the URL your app will be reached from and it has to be globally unique so be creative. The `-m 128M` tells Cloud Foundry to use 128MB of memory for our app which should be plenty.
 
 <pre class="terminal">
-$ cf push cf-sample-app-node -m 128M -n my-random-hostname
-Creating app cf-sample-app-node in org MyOrg / space MySpace as user@mydomain.com...
+$ cf push my-node-app -m 128M -n my-random-hostname
+Creating app my-node-app in org MyOrg / space MySpace as user@mydomain.com...
 OK
 
 Creating route my-random-hostname.scapp.io...
 OK
 
-Binding my-random-hostname.scapp.io to cf-sample-app-node...
+Binding my-random-hostname.scapp.io to my-node-app...
 OK
 
-Uploading cf-sample-app-node...
+Uploading my-node-app...
 Uploading app files from: /.../cf-sample-app-node
 Uploading 6.1K, 17 files
 Done uploading
@@ -40,8 +40,8 @@ buildpack: node.js 1.5.8
 The application is now deployed. Ensure that the app is running:
 
 <pre class="terminal">
-$ cf app cf-sample-app-node
-Showing health and status for app cf-sample-app-node in org MyOrg / space MySpace as user@mydomain.com...
+$ cf app my-node-app
+Showing health and status for app my-node-app in org MyOrg / space MySpace as user@mydomain.com...
 OK
 
 requested state: started

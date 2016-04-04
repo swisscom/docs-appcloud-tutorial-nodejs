@@ -5,7 +5,7 @@ owner: Tobias Fuhrimann
 
 <strong><%= modified_date %></strong>
 
-The <a href="../service-offerings/index.html" target="_blank">service marketplace</a> has a large number of data stores, from Redis and MongoDB, to MariaDB and RabbitMQ. In this step you will add a small MongoDB database to your app.
+The <a href="../service-offerings/index.html" target="_blank">service marketplace</a> has a large number of data stores, from Redis and MongoDB, to MariaDB (fork of MySQL) and RabbitMQ. In this step you will add a small MongoDB database to your app.
 
 Create the database:
 
@@ -24,16 +24,16 @@ This creates a small MongoDB database for you which we now have to bind to our a
 Let's bind the new service to our existing application:
 
 <pre class="terminal">
-$ cf bind-service my-app my-mongodb
-Binding service my-mongodb to app cf-sample-app-node in org MyOrg / space MySpace as user@mydomain.com...
+$ cf bind-service my-node-app my-mongodb
+Binding service my-mongodb to app my-node-app in org MyOrg / space MySpace as user@mydomain.com...
 OK
-TIP: Use 'cf restage cf-sample-app-node' to ensure your env variable changes take effect
+TIP: Use 'cf restage my-node-app' to ensure your env variable changes take effect
 </pre>
 
 After that we restage the application as suggested so that it includes the new credentials in its environment variables:
 
 <pre class="terminal">
-$ cf restage cf-sample-app-node
+$ cf restage my-node-app
 Restaging app my-app in org MyOrg / space MySpace as user@mydomain.com...
 -----> Downloaded app package (8.0K)
 -------> Buildpack version 1.5.8
@@ -158,7 +158,7 @@ if (process.env.VCAP_SERVICES) {
 checks if the app is running in the cloud. If not, it falls back to the default local MongoDB url. This allows you to run your app locally as well as in the cloud without having to configure anything differently. So let's push it to the cloud using
 
 <pre class="terminal">
-$ cf push cf-sample-app-node
+$ cf push my-node-app
 </pre>
 
 You can access other services like Redis or MariaDB in a similar matter, simply by binding them to your app and accessing them through the environment variables.
