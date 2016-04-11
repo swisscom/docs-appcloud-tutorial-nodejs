@@ -58,6 +58,7 @@ cf-sample-app-node@0.0.0 /.../cf-sample-app-node
 Now edit your `app.js` file to use this module to connect to the database specified in your `VCAP_SERVICES` environment variable. We do this by requiring the `mongoose` module and adding a route for the `/db` endpoint which returns the `kittens` collection of our MongoDB:
 
 ```javascript
+// require dependencies
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -69,10 +70,12 @@ var mongoose = require('mongoose');
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
+// bootstrap our app
 var app = express();
 
 var mongoUrl = '';
 
+// check if the app is running in the cloud and set the MongoDB settings accordingly
 if (process.env.VCAP_SERVICES) {
   var vcapServices = JSON.parse(process.env.VCAP_SERVICES);
   mongoUrl = vcapServices.mongodb[0].credentials.uri;
@@ -80,13 +83,16 @@ if (process.env.VCAP_SERVICES) {
   mongoUrl = 'mongodb://localhost/db';
 }
 
+// connect to our MongoDB
 mongoose.connect(mongoUrl);
 
-var kittySchema = mongoose.Schema({
+// create a Mongoose schema for kittens
+var kittenSchema = mongoose.Schema({
   name: 'string'
 });
 
-var Kitten = mongoose.model('Kitten', kittySchema);
+// create a Mongoose model out of our kitten schema
+var Kitten = mongoose.model('Kitten', kittenSchema);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -100,9 +106,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// our basic route to serve the index page
 app.use('/', routes);
-app.use('/users', users);
 
+// the route where you can retrieve all the kittens in our MongoDB
 app.get('/db', function (req, res, next) {
   Kitten.find(function (err, kittens) {
     if (err) return next(err);
@@ -141,7 +148,6 @@ app.use(function(err, req, res, next) {
     error: {}
   });
 });
-
 
 module.exports = app;
 ```
