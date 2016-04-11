@@ -110,6 +110,19 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 
 // the route where you can retrieve all the kittens in our MongoDB
+app.post('/create-kitten/:name', function (req, res, next) {
+  var kitten = new Kitten({
+    name: req.params.name
+  });
+
+  Kitten.find(function (err, kittens) {
+    if (err) return next(err);
+
+    res.json(kittens);
+  })
+})
+
+// the route where you can retrieve all the kittens in our MongoDB
 app.get('/db', function (req, res, next) {
   Kitten.find(function (err, kittens) {
     if (err) return next(err);
