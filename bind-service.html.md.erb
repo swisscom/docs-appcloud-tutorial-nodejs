@@ -118,7 +118,7 @@ app.post('/create-kitten', function (req, res, next) {
   kitten.save(function (err, newKitten) {
     if (err) return next(err);
 
-    res.send(`Kitten #{newKitten.name} saved`);
+    res.send('Kitten ' + newKitten.name + ' saved');
   })
 })
 
