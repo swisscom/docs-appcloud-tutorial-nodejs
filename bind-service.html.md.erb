@@ -111,7 +111,7 @@ app.use('/', routes);
 // the route where you can retrieve all the kittens in our MongoDB
 app.post('/create-kitten', function (req, res, next) {
   var kitten = new Kitten({
-    name: req.param('name')
+    name: req.params.name
   });
 
   kitten.save(function (err, newKitten) {
@@ -169,7 +169,7 @@ This ensures that when you access your app using the `/db` route, it will return
 But you can create new kittens by POSTing to the `create-kitten` endpoint with the kitten's name as a URL query parameter. You can do so using curl or any similar tool:
 
 <pre class="terminal">
-$ curl -X POST http://localhost:3000/create-kitten?name=garfield
+$ curl -X POST "http://localhost:3000/create-kitten&#63;name&#61;garfield"
 </pre>
 
 and then retrieve your new kitten at the `/db` endpoint.
