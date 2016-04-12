@@ -168,7 +168,7 @@ module.exports = app;
 
 This ensures that when you access your app using the `/db` route, it will return all the kittens stored in your database. Currently there are no kittens so it will return an empty array. Sad...
 
-But you can create new kittens by POSTing to the `create-kitten` endpoint with the kitten's name as a URL query parameter. You can do so using curl or any similar tool:
+But you can create new kittens by POST-ing to the `create-kitten` endpoint with the kitten's name as a URL query parameter. You can do so using curl or any similar tool:
 
 <pre class="terminal">
 $ curl -X POST "http://localhost:3000/create-kitten&#63;name&#61;garfield"
