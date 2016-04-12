@@ -10,11 +10,11 @@ In this step you’ll learn how to propagate a local change to the application t
 Change the `title` property in the `routes/index.js` file to 'I am awesome!'. Your final result should look something like this:
 
 ```javascript
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/', (req, res, next) => {
   res.render('index', { title: 'I am awesome!' });
 });
 
