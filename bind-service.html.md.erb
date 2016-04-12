@@ -58,6 +58,8 @@ cf-sample-app-node@0.0.0 /.../cf-sample-app-node
 Now edit your `app.js` file to use this module to connect to the database specified in your `VCAP_SERVICES` environment variable. We do this by requiring the `mongoose` module and adding a route for the `/db` endpoint which returns the `kittens` collection of our MongoDB:
 
 ```javascript
+'use strict';
+
 // require dependencies
 const express = require('express');
 const path = require('path');
