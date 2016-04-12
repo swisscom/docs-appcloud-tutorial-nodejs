@@ -111,7 +111,7 @@ app.use('/', routes);
 // the route where you can retrieve all the kittens in our MongoDB
 app.post('/create-kitten', function (req, res, next) {
   var kitten = new Kitten({
-    name: req.params.name
+    name: req.query.name
   });
 
   kitten.save(function (err, newKitten) {
