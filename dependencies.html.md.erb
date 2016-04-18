@@ -12,18 +12,36 @@ The demo app you deployed already has a `package.json`, and it looks something l
 ```json
 {
   "name": "cf-sample-app-node",
-
-  ...
-
+  "description": "A sample Node.js application to run on Cloud Foundry out of the box",
+  "keywords": [
+    "cloud-foundry"
+  ],
+  "version": "0.0.0",
+  "private": true,
+  "author": "Tobias Fuhrimann <tobias.fuhrimann@swisscom.com>",
+  "license": "ISC",
+  "scripts": {
+    "start": "node ./bin/www"
+  },
   "dependencies": {
-    ...
+    "body-parser": "~1.15.0",
+    "cookie-parser": "~1.4.1",
+    "debug": "~2.2.0",
+    "express": "~4.13.4",
+    "morgan": "~1.7.0",
+    "pug": "^2.0.0-alpha3",
+    "serve-favicon": "~2.3.0"
   },
-
-  ...
-
   "engines": {
-    "node": ...
+    "node": ">=4.4.2"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/swisscom/cf-sample-app-node.git"
+  },
+  "bugs": {
+    "url": "https://github.com/swisscom/cf-sample-app-node/issues"
+  }
 }
 ```
 
