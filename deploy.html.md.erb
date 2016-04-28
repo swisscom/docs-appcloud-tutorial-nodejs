@@ -7,7 +7,7 @@ owner: Tobias Fuhrimann
 
 In this step you will deploy the app to <%= vars.product_full %>.
 
-Push your app to the cloud by executing the following command and replacing the "my-random-hostname" with your own hostname. This will be part of the URL your app will be reached from and it has to be globally unique so be creative. The `-m 128M` tells Cloud Foundry to use 128MB of memory for our app which should be plenty.
+Push your app to the cloud by executing the following command and replacing the "my-random-hostname" with your own hostname. This will be part of the URL your app will be reached at and it has to be globally unique so be creative. The `-m 128M` tells Cloud Foundry to use 128MB of memory for our app which should be plenty.
 
 <pre class="terminal">
 $ cf push my-node-app -m 128M -n my-random-hostname
