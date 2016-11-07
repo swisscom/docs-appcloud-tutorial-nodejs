@@ -5,7 +5,7 @@ owner: Tobias Fuhrimann
 
 <strong><%= modified_date %></strong>
 
-Currently, your app is running as a single instance with 128MB of memory.
+Currently, your app is running as a single instance with 128 MB of memory.
 
 You can check how many instances are running and how much memory they have using the `cf scale` command:
 
@@ -33,7 +33,7 @@ OK
 
 ## Scaling Vertically
 
-Scaling an application vertically on <%= vars.product_full %> is equivalent to changing the amount of memory each instance has. Scale the amount of memory to 256MB:
+Scaling an application vertically on <%= vars.product_full %> is equivalent to changing the amount of memory each instance has. Scale the amount of memory to 256 MB:
 
 <pre class="terminal">
 $ cf scale my-nodejs-app -m 256M
@@ -51,7 +51,7 @@ OK
 #2   running   2016-03-30 04:54:47 PM   0.2%    69.7M of 256M   42M of 1G
 </pre>
 
-The last statement shows a summary of the three instances with a memory cap of 256MB each that we now have.
+The last statement shows a summary of the three instances with a memory cap of 256 MB each that we now have.
 
 <div style="text-align:center;margin:3em;">
   <a href="./dependencies.html" class="btn btn-primary">I know how to scale my App</a>
