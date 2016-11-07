@@ -24,10 +24,10 @@ This creates a small MongoDB database for you which we now have to bind to our a
 Let's bind the new service to our existing application:
 
 <pre class="terminal">
-$ cf bind-service my-node-app my-mongodb
-Binding service my-mongodb to app my-node-app in org MyOrg / space MySpace as user@mydomain.com...
+$ cf bind-service my-nodejs-app my-mongodb
+Binding service my-mongodb to app my-nodejs-app in org MyOrg / space MySpace as user@mydomain.com...
 OK
-TIP: Use 'cf restage my-node-app' to ensure your env variable changes take effect
+TIP: Use 'cf restage my-nodejs-app' to ensure your env variable changes take effect
 </pre>
 
 <p class="note">
@@ -37,7 +37,7 @@ TIP: Use 'cf restage my-node-app' to ensure your env variable changes take effec
 After that we restage the application as suggested so that it includes the new credentials in its environment variables:
 
 <pre class="terminal">
-$ cf restage my-node-app
+$ cf restage my-nodejs-app
 Restaging app my-app in org MyOrg / space MySpace as user@mydomain.com...
 -----> Downloaded app package (8.0K)
 -------> Buildpack version 1.5.8
@@ -50,7 +50,7 @@ Now we want to consume our new MongoDB from within our application. Use npm to a
 
 <pre class="terminal">
 $ npm install --save mongoose
-cf-sample-app-node@0.0.0 /.../cf-sample-app-node
+cf-sample-app-nodejs@0.0.0 /.../cf-sample-app-nodejs
 └─┬ mongoose@4.4.10
   ├── async@1.5.2
   ├── bson@0.4.21
@@ -189,7 +189,7 @@ if (process.env.VCAP_SERVICES) {
 checks if the app is running in the cloud. If not, it falls back to the default local MongoDB url. This allows you to run your app locally as well as in the cloud without having to configure anything differently. So let's push it to the cloud using
 
 <pre class="terminal">
-$ cf push my-node-app
+$ cf push my-nodejs-app
 </pre>
 
 You can access other services like Redis or MariaDB in a similar matter, simply by binding them to your app and accessing them through the environment variables.

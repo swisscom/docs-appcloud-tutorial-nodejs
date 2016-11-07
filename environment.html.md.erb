@@ -10,8 +10,8 @@ owner: Tobias Fuhrimann
 At runtime, environment variables are exposed to the application through its environment. You can use these for example to run Node.js in production mode setting the `NODE_ENV` environment variable.
 
 <pre class="terminal">
-$ cf set-env my-node-app NODE_ENV production
-Setting env variable 'NODE_ENV' to 'production' for app my-node-app in org MyOrg / space MySpace as user@smydomain.com...
+$ cf set-env my-nodejs-app NODE_ENV production
+Setting env variable 'NODE_ENV' to 'production' for app my-nodejs-app in org MyOrg / space MySpace as user@smydomain.com...
 OK
 TIP: Use 'cf restage' to ensure your env variable changes take effect
 </pre>
@@ -19,8 +19,8 @@ TIP: Use 'cf restage' to ensure your env variable changes take effect
 Then restage your app as suggested using
 
 <pre class="terminal">
-$ cf restage my-node-app
-Restaging app my-node-app in org MyOrg / space MySpace as user@mydomain.com...
+$ cf restage my-nodejs-app
+Restaging app my-nodejs-app in org MyOrg / space MySpace as user@mydomain.com...
 -----> Downloaded app package (8.0K)
 -----> Downloaded app buildpack cache (2.3M)
 -------> Buildpack version 1.5.8
