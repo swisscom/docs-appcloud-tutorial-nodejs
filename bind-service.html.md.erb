@@ -59,7 +59,7 @@ cf-sample-app-nodejs@0.0.0 /.../cf-sample-app-nodejs
   ...
 </pre>
 
-Now edit your `app.js` file to use this module to connect to the database specified in your `VCAP_SERVICES` environment variable. We do this by requiring the `mongoose` module and adding a route for the `/db` endpoint which returns the `kittens` collection of our MongoDB:
+Now edit your `app.js` file to use this module to connect to the database specified in your `VCAP_SERVICES` environment variable. We do this by requiring the `mongoose` module and adding a route for the `/kittens` endpoint which returns the `kittens` collection of our MongoDB:
 
 ```javascript
 'use strict';
@@ -115,7 +115,16 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 
 // the route where you can retrieve all the kittens in our MongoDB
-app.post('/create-kitten', (req, res, next) => {
+app.get('/kittens', (req, res, next) => {
+  Kitten.find((err, kittens) => {
+    if (err) return next(err);
+
+    res.json(kittens);
+  })
+})
+
+// the route where you can createa new kitten in our MongoDB
+app.post('/kittens', (req, res, next) => {
   const kitten = new Kitten({
     name: req.query.name
   });
@@ -124,15 +133,6 @@ app.post('/create-kitten', (req, res, next) => {
     if (err) return next(err);
 
     res.send('Kitten ' + newKitten.name + ' saved');
-  })
-})
-
-// the route where you can retrieve all the kittens in our MongoDB
-app.get('/db', (req, res, next) => {
-  Kitten.find((err, kittens) => {
-    if (err) return next(err);
-
-    res.json(kittens);
   })
 })
 
@@ -170,15 +170,15 @@ app.use((err, req, res, next) => {
 module.exports = app;
 ```
 
-This ensures that when you access your app using the `/db` route, it will return all the kittens stored in your database. Currently there are no kittens so it will return an empty array. Sad...
+This ensures that when you access your app using the `/kittens` route, it will return all the kittens stored in your database. Currently there are no kittens so it will return an empty array. Sad...
 
-But you can create new kittens by POST-ing to the `/create-kitten` endpoint with the kitten's name as a URL query parameter. You can do so using curl or any similar tool:
+But you can create new kittens by POST-ing to the `/kittens` endpoint with the kitten's name as a URL query parameter. You can do so using curl or any similar tool:
 
 <pre class="terminal">
-$ curl -X POST "http://localhost:3000/create-kitten&#63;name&#61;garfield"
+$ curl -X POST "http://localhost:3000/kittens&#63;name&#61;garfield"
 </pre>
 
-and then retrieve your new kitten at the `/db` endpoint.
+and then retrieve your new kitten at the `GET /kittens` endpoint.
 
 The line
 
