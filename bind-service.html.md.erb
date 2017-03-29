@@ -123,7 +123,7 @@ app.get('/kittens', (req, res, next) => {
   })
 })
 
-// the route where you can createa new kitten in our MongoDB
+// the route where you can create a new kitten in our MongoDB
 app.post('/kittens', (req, res, next) => {
   const kitten = new Kitten({
     name: req.query.name
