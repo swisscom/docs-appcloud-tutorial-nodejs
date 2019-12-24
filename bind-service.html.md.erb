@@ -10,13 +10,11 @@ The <a href="../service-offerings/index.html" target="_blank">service marketplac
 Create the database:
 
 <pre class="terminal">
-$ cf create-service mongodb small my-mongodb
+$ cf create-service mongodbent small3rs my-mongodb
 Creating service instance my-mongodb in org MyOrg / space MySpace as user@mydomain.com...
 OK
 
 Create in progress. Use 'cf services' or 'cf service my-mongodb' to check operation status.
-
-Attention: The plan `small` of service `mongodb` is not free.  The instance `my-mongodb` will incur a cost.  Contact your administrator if you think this is in error.
 </pre>
 
 This creates a small MongoDB database for you which we now have to bind to our application. Binding means that the credentials and URL of the service will be written dynamically into the environment variables of the app as `VCAP_SERVICES` and can hence be used directly from there.
